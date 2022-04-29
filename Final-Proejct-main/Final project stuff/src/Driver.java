@@ -56,7 +56,7 @@ public class Driver {
             System.out.println("Great job!");
         }
         while(lives != 0 && ! firstGuess.matches(CorrectWord)) {
-
+            System.out.print(System.lineSeparator());
             System.out.println("\n" + "oops! try again!");  
 
             System.out.println("you now have" + " " + lives + " " + "lives left.");       
