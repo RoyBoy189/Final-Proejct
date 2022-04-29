@@ -6,11 +6,14 @@ import java.io.FileNotFoundException;
 public class Driver {
     public static void main(String[] args) {
         StringLinkedList mylist = new StringLinkedList();
-        String Death = "";
+        String CorrectWord = "";
         int lives = 4;
         int whatup = 0;
-        File inputFile = new File("C:/Users/roypo/Desktop/wordle.txt");
+        File inputFile = new File("/home/rpowell/Desktop/Texts/wordle.txt");
         System.out.println("Here is a five-letter word. Try your best to guess it! Any word greater or less than five letters will be deemed incorrect.");
+        System.out.print(System.lineSeparator());
+        System.out.println("double `*` means a letter is within the correct word. double `||` means a letter matches with the order of the correct word.");
+        System.out.print(System.lineSeparator());
         Scanner scan = null;
         try {
             scan = new Scanner(inputFile);
@@ -29,36 +32,48 @@ public class Driver {
             
         int you = 0;
         int me = i;
-        int hat = me - you -0;      
+        int hat = me - you - 0;      
             whatup = (int) (Math.random() * hat) + you ;
-            Death = mylist.get(whatup);
+            CorrectWord = mylist.get(whatup);
         }        
-        System.out.println(Death);
-        String[] yourself = Death.split("");
+        System.out.println(CorrectWord);
+        String[] CorrectWordArray = CorrectWord.split("");
       
 
         Scanner scanner = new Scanner(System.in);
-        String coords = scanner.next();
-        if(coords.contains(yourself[0])) {
-            System.out.print("*" + Arrays.toString(yourself));
+        String firstGuess = scanner.next();
+        String firstGuessArray[] = firstGuess.split("");
+        for (int i = 0; i < firstGuessArray.length; i++) {
+        if(firstGuess.contains(CorrectWordArray[i])) {            
+            if(firstGuessArray[i].equals(CorrectWordArray[0]) || (firstGuessArray[i].equals(CorrectWordArray[1])) || (firstGuessArray[i].equals(CorrectWordArray[2])) || (firstGuessArray[i].equals(CorrectWordArray[3])) || (firstGuessArray[i].equals(CorrectWordArray[4])) ) {
+                firstGuessArray[i] = "*" + firstGuessArray[i] + "*";
+            }
+            System.out.printf(firstGuessArray[i]);
         }
-        if(coords.matches(Death)) {
+    }
+
+        if(firstGuess.matches(CorrectWord)) {
             System.out.println("Great job!");
         }
-        while(lives != 0 && ! coords.matches(Death)) {
+        while(lives != 0 && ! firstGuess.matches(CorrectWord)) {
 
-            System.out.println("oops! try again!");  
+            System.out.println("\n" + "oops! try again!");  
 
             System.out.println("you now have" + " " + lives + " " + "lives left.");       
-            String apples = scanner.next();
-            String[] guess = apples.split("");
-            if(apples.matches(Death) || coords.matches(Death)) {
+            String OtherGuesses = scanner.next();
+            String[] OtherGuessArray = OtherGuesses.split("");
+            if(OtherGuesses.matches(CorrectWord) || firstGuess.matches(CorrectWord)) {
                 System.out.println("Great job!");
                 break;
             }
-            if(apples.contains(yourself[0]) && guess.length == 5) { 
-                        System.out.print("*" + guess[0] + "," + guess[1] + "," + guess[2] + "," + guess[3] + "," + guess[4]);            
+            for (int i = 0; i < OtherGuessArray.length; i++) {
+            if(OtherGuesses.contains(CorrectWordArray[i]) && OtherGuessArray.length == 5) { 
+                if(OtherGuessArray[i].equals(CorrectWordArray[0]) || (OtherGuessArray[i].equals(CorrectWordArray[1])) || (OtherGuessArray[i].equals(CorrectWordArray[2])) || (firstGuessArray[i].equals(CorrectWordArray[3])) || (firstGuessArray[i].equals(CorrectWordArray[4])) ) {
+                    OtherGuessArray[i] = "*" + OtherGuessArray[i] + "*";
             } 
+            System.out.printf(OtherGuessArray[i]);
+            }
+            }
 
             lives = lives - 1;
             if(lives == 0) {
@@ -67,3 +82,6 @@ public class Driver {
         }
     }
 }
+
+ 
+      
